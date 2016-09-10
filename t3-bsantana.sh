@@ -34,7 +34,6 @@ echo -e "####################
 not authoritative;" > dhcpd.conf
 
 
-
 g=(${g[*]} `sed -n -e '/^# [A-Z|h]/ d' -e '/^# [a-z]/p' $1`)
 groups=(${groups[*]} `echo ${g[*]/"#"}`)
 #for i in ${groups[@]} ; do echo -e "$i" ; done
@@ -43,14 +42,19 @@ groups=(${groups[*]} `echo ${g[*]/"#"}`)
 
 #for i in ${groups[@]} ; do
 
-for ((i = 0; i < ${#groups[@]}; i++)) ; do
-  echo -e "\tgroup {"
-  #for i in ${!field1[@]}; do echo -e "\thost ${field1[$i]} ethernet ${field3[$i]}; fixed-address ${field2[$i]}" ; done
-  #for j in ${field1[@]} ; do
-  for ((j = 0; j < ${#field1[@]}; j++)) ; do
-    if [[ "${field4[$j]}" =~ "${groups[$i]}" ]]; then
-        echo -e "\t\thost ${field1[$j]} { hardware ethernet ${field3[$j]}; fixed-address ${field2[$j]}; }"
-    fi
+for ((u = 0; u < ${#f2[@]}; u++)) ; do
+  echo -e "\tsubnet ${f2[$u]}.0 netmask 255.255.255.0\n\t{"
+  for ((i = 0; i < ${#groups[@]}; i++)) ; do
+    echo -e "\t\tgroup {"
+    for ((j = 0; j < ${#field1[@]}; j++)) ; do
+      #echo -e ""${field4[$j]}" == "${groups[$i]}" && "${field2[$j]}" =~ "${f2[$u]}""
+      if [[ "${field4[$j]}" == "${groups[$i]}" && "${field2[$j]}" =~ "${f2[$u]}" ]]; then
+          echo -e "\t\t\thost ${field1[$j]} { hardware ethernet ${field3[$j]}; fixed-address ${field2[$j]}; }"
+      fi
+    done
+    echo -e "\t\t}"
   done
   echo -e "\t}"
 done
+
+echo "{$field3[*]}" | cut -f3 -d' ' | cut -f1,2,3,4,5,6,7,8,9,10 -d','
