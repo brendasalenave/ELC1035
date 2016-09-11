@@ -68,19 +68,15 @@ for ((u = 0; u < ${#f2[@]}; u++)) ; do
     echo -ne "\t\tgroup {"
     for ((j = 0; j < ${#field1[@]}; j++)) ; do
       if [[ "${field4[$j]}" == "${groups[$i]}" && "${field2[$j]}" =~ "${f2[$u]}" ]]; then
-          #echo -ne "\n\t\t\thost ${field1[$j]} { hardware ethernet ${field3[$j]}; fixed-address ${field2[$j]}; }"
-
-      ###
-      f3=(`echo ${field3[$j]} | sed 's/,/ /g' | cut -f1,2,3 -d' '`)
-      for ((k = 0; k < ${#f3[@]}; k++)) ; do
-        if [[ $k == 0 ]] ; then
-          echo -ne "\n\t\t\thost ${field1[$j]} { hardware ethernet ${field3[$j]}; fixed-address ${field2[$j]}; }"
-        else
-          echo -ne "\n\t\t\thost ${field1[$j]}$k { hardware ethernet ${field3[$j]}; fixed-address ${field2[$j]}; }"
-        fi
-      done
-    fi
-      ##
+        f3=(`echo ${field3[$j]} | sed 's/,/ /g' | cut -f1,2,3 -d' '`)
+        for ((k = 0; k < ${#f3[@]}; k++)) ; do
+          if [[ $k == 0 ]] ; then
+            echo -ne "\n\t\t\thost ${field1[$j]} { hardware ethernet ${f3[$k]}; fixed-address ${field2[$j]}; }"
+          else
+            echo -ne "\n\t\t\thost ${field1[$j]}$k { hardware ethernet ${f3[$k]}; fixed-address ${field2[$j]}; }"
+          fi
+        done
+      fi
     done
     echo -e " }\r"
   done
@@ -89,4 +85,3 @@ done >> dhcpd.conf
 echo "}" >> dhcpd.conf
 
 sed -i -e 's/group { }//g' -e 's/} }/}\n\t\t}/g' -e '/^\s*$/d' -e '/^$/d' dhcpd.conf
-echo "{$field3[*]}" | cut -f3 -d' ' | cut -f1,2,3,4,5,6,7,8,9,10 -d','
