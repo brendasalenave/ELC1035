@@ -19,21 +19,21 @@ mostraMenu(){
 findMachine(){
   # show an inputbox
   dialog --title "Inputbox - To take input from you" \
-  --backtitle "Linux Shell Script Tutorial Example" \
-  --inputbox "Enter your name " 8 60 2>$OUTPUT
+  --inputbox "Machine" 8 60 2>$OUTPUT
 
   # get respose
   respose=$?
   # get data stored in $OUPUT using input redirection
   name=$(<$OUTPUT)
+  echo -e "\n\n$name"
 
   # make a decsion
   case $respose in
     0)
-      #sayhello ${name}
-      m=(${m[*]} `sed "/$name/p" $1`)
-      #a=$(sed -n '/$name/p' $1)
-      dialog --title "Machines Find" --msgbox "${m[*]}" 100 100
+      echo "entrou aqui"
+      echo "$name"
+      m=`sed -n -e "/$name/p" $1`
+      dialog --title "Machines Found" --msgbox "$m" 100 100
       ;;
     1)
       echo "Cancel pressed."
@@ -52,7 +52,31 @@ findMachine(){
     case $choice in
             1)
                 echo -e "You chose Option 1"
-                findMachine
+                #findMachine
+                # show an inputbox
+                dialog --title "Inputbox - To take input from you" \
+                --inputbox "Machine" 8 60 2>$OUTPUT
+
+                # get respose
+                respose=$?
+                # get data stored in $OUPUT using input redirection
+                name=$(<$OUTPUT)
+                echo -e "\n\n$name"
+
+                # make a decsion
+                case $respose in
+                  0)
+                    echo "entrou aqui"
+                    echo "$name"
+                    m=`sed -n -e "/$name/p" $1`
+                    dialog --title "Machines Found" --msgbox "$m" 100 100
+                    ;;
+                  1)
+                    echo "Cancel pressed."
+                    ;;
+                  255)
+                   echo "[ESC] key pressed."
+                esac
 
                 ;;
             2)
@@ -64,6 +88,11 @@ findMachine(){
                 ;;
             3)
                 echo -e "You chose Option 3"
+                field1=(${field1[*]} `cat $1 | cut -f1 -d' '`)
+                dialog                                         \
+                --title 'Select machine(s) to delete'             \
+                --msgbox 'Instalação finalizada com sucesso.'  \
+                6 40
                 ;;
             4)
                 echo -e "You chose Option 4"
