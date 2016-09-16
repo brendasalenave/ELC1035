@@ -42,11 +42,10 @@ select_machine(){
   COUNTER=1
   RADIOLIST=""  # variable where we will keep the list entries for radiolist dialog
 
-  for ((u = 0; u < ${#field1[@]}; u++)) ; do
-    RADIOLIST="$RADIOLIST ${field1[$u]} ${field2[$u]} off "
-    let COUNTER=COUNTER+1
+  for i in "${field1[@]}"; do
+      RADIOLIST="$RADIOLIST $COUNTER $i off "
+      let COUNTER=COUNTER+1
   done
-
 
   ESCOLHA=$(dialog --title "Select machine to edit" \
           --stdout \
@@ -54,6 +53,18 @@ select_machine(){
           $RADIOLIST)
 
   dialog --title "Máquinas:" --msgbox "$ESCOLHA" 7 30
+
+  IFS=' ' eval 'array=($ESCOLHA)'
+  echo -e "\n\n${array[*]}"
+
+  confirm
+  _res=$?
+  if [[ "$_res" = "0" ]] ; then
+    for i in ${!array[@]}; do
+      sed -i "${array[$i]}s/.*//" $1
+    done
+  fi
+
 }
 
 confirm(){
@@ -124,41 +135,39 @@ add_machine(){
   echo $_str >> $1
 }
 
-#while : ; do
+while : ; do
   mostraMenu
   retval=$?
-  if [[ "$retval" = "0" ]] ; then
-    choice=$(cat temp)
-
-    case $choice in
-            1)
-                echo -e "You chose Option 1: Search machine"
-                searchMachine $1 ;;
-
-            2)
-                echo "You chose Option 2: Add machine"
-                add_machine $1 ;;
-            3)
-                echo -e "You chose Option 3: Delete machine"
-                select_machine $1
-                confirm
-                ;;
-            4)
-                echo -e "You chose Option 4: Edit machine"
-                selectMachine2edit $1 ;;
-            5)
-                echo -e "You chose Option 5: View machine"
-                dialog --title "List file" --msgbox "$(cat $1)" 100 100
-                ;;
-            0) clear
-               exit ;;
-    esac
-  # Cancel is pressed
-  else
-    clear
-    echo "Cancel is pressed"
+  if [ "$retval" != "0" ] ; then
+  clear
+  break
   fi
-#done
+
+  choice=$(cat temp)
+
+  case $choice in
+          1)
+              echo -e "You chose Option 1: Search machine"
+              searchMachine $1 ;;
+
+          2)
+              echo "You chose Option 2: Add machine"
+              add_machine $1 ;;
+          3)
+              echo -e "You chose Option 3: Delete machine"
+              select_machine $1
+              ;;
+          4)
+              echo -e "You chose Option 4: Edit machine"
+              selectMachine2edit $1 ;;
+          5)
+              echo -e "You chose Option 5: View machine"
+              dialog --title "List file" --msgbox "$(cat $1)" 100 100
+              ;;
+          0) clear
+             break ;;
+  esac
+done
 # remove the temp file
 rm -f temp
 # remove $OUTPUT file
