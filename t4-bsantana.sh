@@ -18,12 +18,14 @@ mostraMenu(){
 
 selectMachine2edit(){
   field1=(${field1[*]} `sed '/^#/ d' $1 | cut -f1 -d' '`)
+  field2=(${field2[*]} `sed '/^#/ d' $1 | cut -f2 -d' '`)
+
   COUNTER=1
   RADIOLIST=""  # variable where we will keep the list entries for radiolist dialog
-  for i in "${field1[@]}"; do
-    RADIOLIST="$RADIOLIST $COUNTER $i off "
-    let COUNTER=COUNTER+1
-  done
+for ((u = 0; u < ${#field1[@]}; u++)) ; do
+  RADIOLIST="$RADIOLIST ${field1[$u]} ${field2[$u]} off "
+  let COUNTER=COUNTER+1
+done
 
   ESCOLHA=$(dialog --title "Select machine to edit" \
   --stdout \
@@ -35,12 +37,16 @@ selectMachine2edit(){
 
 select_machine(){
   field1=(${field1[*]} `sed '/^#/ d' $1 | cut -f1 -d' '`)
+  field2=(${field2[*]} `sed '/^#/ d' $1 | cut -f2 -d' '`)
+
   COUNTER=1
   RADIOLIST=""  # variable where we will keep the list entries for radiolist dialog
-  for i in "${field1[@]}"; do
-    RADIOLIST="$RADIOLIST $COUNTER $i off "
+
+  for ((u = 0; u < ${#field1[@]}; u++)) ; do
+    RADIOLIST="$RADIOLIST ${field1[$u]} ${field2[$u]} off "
     let COUNTER=COUNTER+1
   done
+
 
   ESCOLHA=$(dialog --title "Select machine to edit" \
           --stdout \
