@@ -112,6 +112,14 @@ add_machine(){
   dialog --title "IP" \
   --inputbox "" 8 60 2>$OUTPUT
   _aux=$(<$OUTPUT)
+  if [[ $name =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$  ]] ; then
+  	echo "funfa"
+  else
+    dialog --title " ERROR" --msgbox "invalid IP" 6 15
+
+
+  fi
+
   _str="$_str $_aux"
 
   dialog --title "MAC" \
