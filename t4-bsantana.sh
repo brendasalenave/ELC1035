@@ -16,23 +16,75 @@ mostraMenu(){
   0 "Exit" 2>temp
 }
 
-selectMachine2edit(){
+check_hostname(){
+  if [[ $1 =~ ^([A-Za-z]*)([0-9]*[A-Za-z]*)*$ ]] ; then
+    retval=0
+  else
+     retval=1
+  fi
+  return "$retval"
+}
+
+check_IP(){
+  if [[ $1 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]] ; then
+    retval=0
+  else
+     retval=1
+  fi
+  return "$retval"
+}
+
+check_MAC(){
+  if [[ $1 =~ ^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$ ]] ; then
+    retval=0
+  else
+     retval=1
+  fi
+  return "$retval"
+}
+
+edit_machine(){
   field1=(${field1[*]} `sed '/^#/ d' $1 | cut -f1 -d' '`)
   field2=(${field2[*]} `sed '/^#/ d' $1 | cut -f2 -d' '`)
 
   COUNTER=1
   RADIOLIST=""  # variable where we will keep the list entries for radiolist dialog
-for ((u = 0; u < ${#field1[@]}; u++)) ; do
-  RADIOLIST="$RADIOLIST ${field1[$u]} ${field2[$u]} off "
-  let COUNTER=COUNTER+1
-done
+  for ((u = 0; u < ${#field1[@]}; u++)) ; do
+    RADIOLIST="$RADIOLIST ${field1[$u]} ${field2[$u]} off "
+    let COUNTER=COUNTER+1
+  done
 
   ESCOLHA=$(dialog --title "Select machine to edit" \
   --stdout \
   --radiolist "" 0 0 $COUNTER \
   $RADIOLIST)
-  dialog --title "Máquinas:" --msgbox "$ESCOLHA" 7 30
+  dialog --title "Máquina:" --msgbox "$ESCOLHA" 7 30
 
+  m=`sed -n -e "/$ESCOLHA/p" $1`
+  m1=$(echo $m | cut -f1 -d' ')
+  aux=$(dialog --stdout --title "Edit hostname" --inputbox "" 10 60 $m1)
+  check_hostname $aux
+  retval=$?
+  if [[ "$retval" == 0 ]] ; then
+    sed -i -e "s/$m1/$aux/g" $1
+  fi
+
+  m1=$(echo $m | cut -f2 -d' ')
+  aux=$(dialog --stdout --title "Edit IP" --inputbox "" 10 60 $m1)
+  check_IP $aux
+  retval=$?
+  if [[ "$retval" == 0 ]] ; then
+      sed -i -e "s/$m1/$aux/g" $1
+  fi
+
+  m1=$(echo $m | cut -f3 -d' ')
+  aux=$(dialog --stdout --title "Edit MAC" --inputbox "" 10 60 $m1)
+  check_MAC $aux
+  retval=$?
+  if [[ "$retval" == 0 ]] ; then
+    sed -i -e "s/$m1/$aux/g" $1
+  fi
+  
  }
 
 select_machine(){
@@ -88,10 +140,7 @@ searchMachine(){
   # make a decsion
   case $_ret in
     0)
-      echo "entrou aqui"
-      echo "$name"
       m=`sed -n -e "/$name/p" $1`
-      echo $m
       dialog --title "Machines Found" --msgbox "$m" 100 80
       ;;
     1)
@@ -107,19 +156,25 @@ add_machine(){
   --inputbox "" 8 60 2>$OUTPUT
 
   _aux=$(<$OUTPUT)
-  if [[ $_aux =~ ^([A-Za-z]*)([0-9]*[A-Za-z]*)*$ ]] ; then
+  check_hostname $_aux
+  retval=$?
+  if [[ "$retval" == 0 ]] ; then
     _str="$_aux"
 
     dialog --title "IP" \
     --inputbox "" 8 60 2>$OUTPUT
     _aux=$(<$OUTPUT)
-    if [[ $_aux =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$  ]] ; then
+    check_IP $_aux
+    retval=$?
+    if [[ "$retval" == 0 ]] ; then
       _str="$_str $_aux"
 
       dialog --title "MAC" \
       --inputbox "" 8 60 2>$OUTPUT
       _aux=$(<$OUTPUT)
-      if [[ $_aux =~ ^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$ ]] ; then
+      check_MAC $_aux
+      retval=$?
+      if [[ "$retval" == 0 ]] ; then
         _str="$_str $_aux"
 
         dialog --title "Group" \
@@ -168,7 +223,7 @@ while : ; do
               ;;
           4)
               echo -e "You chose Option 4: Edit machine"
-              selectMachine2edit $1 ;;
+              edit_machine $1 ;;
           5)
               echo -e "You chose Option 5: View machine"
               dialog --title "List file" --msgbox "$(cat $1)" 100 100
