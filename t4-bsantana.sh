@@ -12,7 +12,7 @@ mostraMenu(){
   2 "Add machine" \
   3 "Delete machine" \
   4 "Edit machine" \
-  5 "View machine" \
+  5 "View machines" \
   0 "Exit" 2>temp
 }
 
@@ -107,40 +107,41 @@ add_machine(){
   --inputbox "" 8 60 2>$OUTPUT
 
   _aux=$(<$OUTPUT)
-  _str="$_aux"
+  if [[ $_aux =~ ^([A-Za-z]*)([0-9]*[A-Za-z]*)*$ ]] ; then
+    _str="$_aux"
 
-  dialog --title "IP" \
-  --inputbox "" 8 60 2>$OUTPUT
-  _aux=$(<$OUTPUT)
-  if [[ $name =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$  ]] ; then
-  	echo "funfa"
-  else
-    dialog --title " ERROR" --msgbox "invalid IP" 6 15
+    dialog --title "IP" \
+    --inputbox "" 8 60 2>$OUTPUT
+    _aux=$(<$OUTPUT)
+    if [[ $_aux =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$  ]] ; then
+      _str="$_str $_aux"
 
+      dialog --title "MAC" \
+      --inputbox "" 8 60 2>$OUTPUT
+      _aux=$(<$OUTPUT)
+      if [[ $_aux =~ ^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$ ]] ; then
+        _str="$_str $_aux"
 
+        dialog --title "Group" \
+        --inputbox "" 8 60 2>$OUTPUT
+        _aux=$(<$OUTPUT)
+        _str="$_str $_aux"
+
+        dialog --title "Alias" \
+        --inputbox "" 8 60 2>$OUTPUT
+        _aux=$(<$OUTPUT)
+        if [[ "$_aux" == "" ]] ; then
+          _str="$_str -"
+        else _str="$_str $_aux"
+        fi
+
+        echo $_str >> $1
+      else dialog --title " ERROR" --msgbox "invalid MAC" 6 15
+      fi
+    else dialog --title " ERROR" --msgbox "invalid IP" 6 15
+    fi
+  else dialog --title " ERROR" --msgbox "invalid Hostname" 6 15
   fi
-
-  _str="$_str $_aux"
-
-  dialog --title "MAC" \
-  --inputbox "" 8 60 2>$OUTPUT
-  _aux=$(<$OUTPUT)
-  _str="$_str $_aux"
-
-  dialog --title "Group" \
-  --inputbox "" 8 60 2>$OUTPUT
-  _aux=$(<$OUTPUT)
-  _str="$_str $_aux"
-
-  dialog --title "Alias" \
-  --inputbox "" 8 60 2>$OUTPUT
-  _aux=$(<$OUTPUT)
-  if [[ "$_aux" == "" ]] ; then
-    _str="$_str -"
-  else _str="$_str $_aux"
-  fi
-
-  echo $_str >> $1
 }
 
 while : ; do

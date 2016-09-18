@@ -22,19 +22,3 @@ wireless02 200.18.42.181 00:09:5B:67:6A:51 ap200v -
 brujah 200.18.42.77 00:11:5B:37:EC:E2,00:08:54:32:52:B2,00:08:54:32:52:B5 lsc200 -
 eterea 200.18.42.78 00:11:5B:34:F9:84 lsc200 -
 paple 200.18.42.95 00:02:E3:31:61:EF lsc200 nfs-lsc
-irra 9320423 -
-sd fdsf -
-dfs sdf -
-sfd sdf -
-df fd -
-f fff -
-432 234 -
-w e d d d
-rwer 34343 -
-ds dsf -
-fd fd -
-gfd fg -
-dfds -
-fd fd -
-e dsf -
-fds sdf -
