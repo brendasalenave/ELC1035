@@ -1,8 +1,30 @@
-0#!/bin/bash
+#!/bin/bash
 OUTPUT="/tmp/input.txt"
 >$OUTPUT
 
-sed -i -e '/^#/ d' -e '/^$/d' $1
+split_MAC(){
+  sed -i -e '/^#/ d' -e '/^$/d' $1
+  field1=(${field1[*]} `sed '/^#/ d' $1 | cut -f1 -d' '`)
+  field2=(${field2[*]} `sed '/^#/ d' $1 | cut -f2 -d' '`)
+  field3=(${field3[*]} `sed '/^#/ d' $1 | cut -f3 -d' '`)
+  field4=(${field4[*]} `sed '/^#/ d' $1 | cut -f4 -d' '`)
+  field5=(${field5[*]} `sed '/^#/ d' $1 | cut -f5 -d' '`)
+
+  #empty=""
+  echo "">$1
+  #sleep 5
+  for ((u=0 ; u < ${#field3[@]}; u++)) ; do
+  	f3=(`echo ${field3[$u]} | sed 's/,/ /g' | cut -f1,2,3 -d' '`)
+  	 for ((k = 0; k < ${#f3[@]}; k++)) ; do
+  		 if [[ $k == 0 ]] ; then
+  			 echo -ne "\n${field1[$u]} ${field2[$u]} ${field3[$k]} ${field4[$u]} ${field5[$u]}">>$1
+  		 else
+  			 echo -ne "\n${field1[$u]}$k ${field2[$u]} ${field3[$k]} ${field4[$u]} ${field5[$u]}">>$1
+  		 fi
+  	 done
+  done
+  sed -i -e '/^$/d' $1
+}
 
 mostraMenu(){
   dialog --backtitle "T4 - GUI Database" --title "DATABASE MANAGER" \
@@ -35,7 +57,7 @@ check_IP(){
 }
 
 check_MAC(){
-  if [[ $1 =~ ^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$ ]] ; then
+  if [[ $1 =~ ^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}(,([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2})*$ ]] ; then
     retval=0
   else
      retval=1
@@ -84,8 +106,47 @@ edit_machine(){
   if [[ "$retval" == 0 ]] ; then
     sed -i -e "s/$m1/$aux/g" $1
   fi
-  
- }
+
+}
+
+view_machine(){
+     choice=$(dialog   --stdout   \
+        --title 'Select a field'  \
+        --radiolist ''            \
+        0 0 0                     \
+        1 'Names'   on            \
+        2 'IPs'     off           \
+        3 'MACs'    off           \
+        4 'Groups'  off           \
+        5 'Complete FIle' off)
+
+        #dialog --title "Máquina:" --msgbox "$choice" 7 30
+        case $choice in
+                1)
+                  array=( $(sort -u -t' ' -k1 $1 | cut -f1 -d' ') )
+                  dialog --title "Names" --msgbox "$(for i in ${array[@]} ; do echo -e "\t$i" ; done)" 40 100
+                  ;;
+
+                2)
+                  array=( $(sort -u -t' ' -k2 $1 | cut -f2 -d' ') )
+                  dialog --title "IPs" --msgbox "$(for i in ${array[@]} ; do echo -e "\t$i" ; done)" 40 100
+                  ;;
+
+                3)
+                  array=( $(sort -u -t' ' -k3 $1 | cut -f3 -d' ') )
+                  dialog --title "MACs" --msgbox "$(for i in ${array[@]} ; do echo -e "\t$i" ; done)" 40 100
+                  ;;
+
+                4)
+                  array=( $(sort -u -t' ' -k4 $1 | cut -f4 -d' ' | uniq) )
+                  dialog --title "Groups" --msgbox "$(for i in ${array[@]} ; do echo -e "\t$i" ; done)" 40 100
+                  ;;
+                5)
+                  sed -i -e '/^$/d' $1
+                  dialog --title "List file" --msgbox "$(cat $1)" 100 100
+
+        esac
+}
 
 select_machine(){
   field1=(${field1[*]} `sed '/^#/ d' $1 | cut -f1 -d' '`)
@@ -142,12 +203,6 @@ searchMachine(){
     0)
       m=`sed -n -e "/$name/p" $1`
       dialog --title "Machines Found" --msgbox "$m" 100 80
-      ;;
-    1)
-      echo "Cancel pressed."
-      ;;
-    255)
-     echo "[ESC] key pressed."
   esac
 }
 
@@ -190,15 +245,18 @@ add_machine(){
         else _str="$_str $_aux"
         fi
 
-        echo $_str >> $1
+        echo $_str>> $1
       else dialog --title " ERROR" --msgbox "invalid MAC" 6 15
       fi
     else dialog --title " ERROR" --msgbox "invalid IP" 6 15
     fi
   else dialog --title " ERROR" --msgbox "invalid Hostname" 6 15
   fi
+
+  #split_MAC $1
 }
 
+split_MAC $1
 while : ; do
   mostraMenu
   retval=$?
@@ -213,21 +271,19 @@ while : ; do
           1)
               echo -e "You chose Option 1: Search machine"
               searchMachine $1 ;;
-
           2)
               echo "You chose Option 2: Add machine"
               add_machine $1 ;;
+              #split_MAC $1 ;;
           3)
               echo -e "You chose Option 3: Delete machine"
-              select_machine $1
-              ;;
+              select_machine $1 ;;
           4)
               echo -e "You chose Option 4: Edit machine"
               edit_machine $1 ;;
           5)
               echo -e "You chose Option 5: View machine"
-              dialog --title "List file" --msgbox "$(cat $1)" 100 100
-              ;;
+              view_machine $1 ;;
           0) clear
              break ;;
   esac
