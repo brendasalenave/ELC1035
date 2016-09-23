@@ -3,7 +3,13 @@ OUTPUT="/tmp/input.txt"
 >$OUTPUT
 
 split_MAC(){
-  sed -i -e '/^#/ d' -e '/^$/d' $1
+  #for i in ${field1[@]} ; do echo -e "\n$i" done
+  #sed -i -e '/^#/ d' -e '/^$/d' $1
+  unset field1
+  unset field2
+  unset field3
+  unset field4
+  unset field5
   field1=(${field1[*]} `sed '/^#/ d' $1 | cut -f1 -d' '`)
   field2=(${field2[*]} `sed '/^#/ d' $1 | cut -f2 -d' '`)
   field3=(${field3[*]} `sed '/^#/ d' $1 | cut -f3 -d' '`)
@@ -17,12 +23,13 @@ split_MAC(){
   	f3=(`echo ${field3[$u]} | sed 's/,/ /g' | cut -f1,2,3 -d' '`)
   	 for ((k = 0; k < ${#f3[@]}; k++)) ; do
   		 if [[ $k == 0 ]] ; then
-  			 echo -ne "\n${field1[$u]} ${field2[$u]} ${field3[$k]} ${field4[$u]} ${field5[$u]}">>$1
+  			 echo -ne "\n${field1[$u]} ${field2[$u]} ${f3[$k]} ${field4[$u]} ${field5[$u]}">>$1
   		 else
-  			 echo -ne "\n${field1[$u]}$k ${field2[$u]} ${field3[$k]} ${field4[$u]} ${field5[$u]}">>$1
+  			 echo -ne "\n${field1[$u]}$k ${field2[$u]} ${f3[$k]} ${field4[$u]} ${field5[$u]}">>$1
   		 fi
   	 done
   done
+  #field1=
   sed -i -e '/^$/d' $1
 }
 
@@ -39,7 +46,7 @@ mostraMenu(){
 }
 
 check_hostname(){
-  if [[ $1 =~ ^([A-Za-z]*)([0-9]*[A-Za-z]*)*$ ]] ; then
+  if [[ $1 =~ ^([A-Za-z]+)([0-9]*[A-Za-z]*)*$ ]] ; then
     retval=0
   else
      retval=1
@@ -58,6 +65,15 @@ check_IP(){
 
 check_MAC(){
   if [[ $1 =~ ^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}(,([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2})*$ ]] ; then
+    retval=0
+  else
+     retval=1
+  fi
+  return "$retval"
+}
+
+check_group(){
+  if [[ $1 =~ ^[a-zA-Z]+([-|_|.|0-9|a-zA-Z]*)$ ]] ; then
     retval=0
   else
      retval=1
@@ -143,7 +159,7 @@ view_machine(){
                   ;;
                 5)
                   sed -i -e '/^$/d' $1
-                  dialog --title "List file" --msgbox "$(cat $1)" 100 100
+                  dialog --title "List file" --msgbox "$(cat $1)" 150 100
 
         esac
 }
@@ -210,6 +226,7 @@ add_machine(){
   dialog --title "Hostname" \
   --inputbox "" 8 60 2>$OUTPUT
 
+  unset $_str
   _aux=$(<$OUTPUT)
   check_hostname $_aux
   retval=$?
@@ -235,17 +252,22 @@ add_machine(){
         dialog --title "Group" \
         --inputbox "" 8 60 2>$OUTPUT
         _aux=$(<$OUTPUT)
-        _str="$_str $_aux"
+        check_group $_aux
+        retval=$?
+        if [[ "$retval" == 0 ]] ; then
+          _str="$_str $_aux"
 
-        dialog --title "Alias" \
-        --inputbox "" 8 60 2>$OUTPUT
-        _aux=$(<$OUTPUT)
-        if [[ "$_aux" == "" ]] ; then
-          _str="$_str -"
-        else _str="$_str $_aux"
+          dialog --title "Alias" \
+          --inputbox "" 8 60 2>$OUTPUT
+          _aux=$(<$OUTPUT)
+          if [[ "$_aux" == "" ]] ; then
+            _str="$_str -"
+          else _str="$_str $_aux"
+          fi
+          #dialog --title " ADD" --msgbox "$_str" 6 15
+          echo -e "\n$_str">> $1
+        else dialog --title " ERROR" --msgbox "invalid group name" 6 15
         fi
-
-        echo $_str>> $1
       else dialog --title " ERROR" --msgbox "invalid MAC" 6 15
       fi
     else dialog --title " ERROR" --msgbox "invalid IP" 6 15
@@ -257,6 +279,8 @@ add_machine(){
 }
 
 split_MAC $1
+#sleep 3
+#split_MAC $1
 while : ; do
   mostraMenu
   retval=$?
@@ -273,8 +297,9 @@ while : ; do
               searchMachine $1 ;;
           2)
               echo "You chose Option 2: Add machine"
-              add_machine $1 ;;
-              #split_MAC $1 ;;
+              add_machine $1
+              #sleep 5
+              split_MAC $1 ;;
           3)
               echo -e "You chose Option 3: Delete machine"
               select_machine $1 ;;
