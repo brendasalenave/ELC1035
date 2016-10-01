@@ -230,6 +230,12 @@ add_machine(){
   _aux=$(<$OUTPUT)
   check_hostname $_aux
   retval=$?
+  if [[ " ${field1[@]} " =~ " ${sunray04}" ]]; then
+      echo "whatever you want to do when arr contains value"
+  else
+    echo "whatever you want to do when arr doesn't contain value"
+  fi
+
   if [[ "$retval" == 0 ]] ; then
     _str="$_aux"
 
