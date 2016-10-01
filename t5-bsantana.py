@@ -39,6 +39,9 @@ for u in range(50):
             imgFile.write(chunk)
         imgFile.close()
         count += 1
+    else: id_fig = id_fig + 1
+
+
 
 imgs = os.listdir('phd')
 print(len(imgs))
@@ -48,5 +51,5 @@ if (len(imgs) > 5):
         for u in range(5, t):
             os.remove(imgs[u])
         break
-        
+
 print('Done!')
