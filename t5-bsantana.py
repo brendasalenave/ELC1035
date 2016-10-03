@@ -25,12 +25,12 @@ id_fig = int(id_[0])
 limit = id_fig
 
 count = 0
-for u in range(50):
+for u in range(limit):
     id_fig = id_fig - 1
-    comicUrl = 'http://www.phdcomics.com/comics/archive/phd0' + str(id_fig) + 's.gif'
+    comicUrl = 'http://www.phdcomics.com/comics/archive/phd' + str(id_fig) + 's.gif'
     res=requests.get(comicUrl)
-    if (count >= 5): break
-    if(res.status_code != 404) and (count < 5):
+    if (count >= 4): break
+    if(res.status_code != 404) and (count < 4):
         res.raise_for_status()
         imgFile=open(os.path.join('phd',
         os.path.basename(comicUrl)),'wb')
