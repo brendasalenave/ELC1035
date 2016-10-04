@@ -1,5 +1,4 @@
 #!/usr/bin/envpython3
-
 import os, requests, bs4, re
 
 url = 'http://phdcomics.com'
