@@ -1,0 +1,21 @@
+12/11/2016 16:26:18
+/teste/Modelos/Centro.swift 1315a50c691664bb54088e514809e51f
+/teste/Modelos/CPC.swift ee261463fc2620763c9b25aa964911e5
+/teste/Modelos/Curso.swift 68c8d7e67262a65ec54b8a97cfbcf84f
+/teste/Modelos/Indicador.swift 826eb0be4300a0204519cc9927866a1d
+/teste/Modelos/Instituicao.swift 661ac01bce4ea46d9a7addfc1d6a672b
+/teste/Modelos/PosicaoCalculada.swift ffe5621635bb24fda283308815775e78
+/teste/Modelos/Util.swift 83fca22881372cb7322c2ba8b4b8ff55
+/teste/SimuladorCPC/ClassificacaoViewController.swift 1dbc0c8e98502bc1d60ac477ece82692
+/teste/SimuladorCPC/ClassificacaoViewController.xib 0bffd01b8ab171e7717f148e180e555f
+/teste/SimuladorCPC/GraficoViewController.swift 37b9b4c94afa0a6f79aa75d77ba97222
+/teste/SimuladorCPC/GraficoViewController.xib fbb441e691f638fc6289337ca2aefec0
+/teste/SimuladorCPC/RankingViewController.swift 7e23a144e958b2c7d262341eb21c7ed5
+/teste/SimuladorCPC/RankingViewController.xib d539a7fa952ffbadaac5741dfa54514a
+/teste/SimuladorCPC/SimuladorViewController.swift 5e4cb695223917e763fd0feac5a66d53
+/teste/SimuladorCPC/SimuladorViewController.xib 19f7ad5b4f65983c2e96bb038ad8dc5f
+/teste/Sobre/GlossarioViewController.swift ad6491c133dd1d7ff080094f7cf68a7a
+/teste/Sobre/GlossarioViewController.xib 807b174eece5e10bbeaa140c2d4390fb
+/teste/Sobre/SobreViewController.swift bc9b9edd203a9722e77ed08e3e33fd4b
+/teste/Sobre/SobreViewController.xib d4ddfbe439b303fd75258ed328b8242f
+

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SobreViewController" customModule="SmartCPC" customModuleProvider="target">
+            <connections>
+                <outlet property="imgUfsm" destination="END-XP-ZqP" id="oM9-Wp-VSJ"/>
+                <outlet property="textHeightConstraint" destination="Xte-Zc-jqO" id="fdH-LJ-zWw"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="Ict-bh-hHP"/>
+                <outlet property="viewContent" destination="kqo-OB-lG3" id="SM9-5S-ZTy"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gM1-TD-8iM">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="1020"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kqo-OB-lG3">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="END-XP-ZqP">
+                                    <rect key="frame" x="8" y="8" width="100" height="100"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="2wV-5W-NME"/>
+                                        <constraint firstAttribute="height" constant="100" id="TVb-D8-K4c"/>
+                                    </constraints>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdo-O8-NWC">
+                                    <rect key="frame" x="245" y="264" width="110" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="110" id="2nX-ji-ljC"/>
+                                    </constraints>
+                                    <state key="normal" title="Glossário"/>
+                                    <connections>
+                                        <action selector="abrirGlossario" destination="-1" eventType="touchUpInside" id="Q0V-Fp-mzf"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SmartCPC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="430-ID-8AL">
+                                    <rect key="frame" x="116" y="38" width="476" height="39"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                    <color key="textColor" red="0.12941176469999999" green="0.25882352939999997" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caroline Jardim Siqueira" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFO-NN-nJX">
+                                    <rect key="frame" x="210" y="354" width="180" height="18"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gustavo Zanini Kantorski" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QG5-TY-QxH">
+                                    <rect key="frame" x="209" y="458" width="183" height="18"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="João Carlos Lima" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19O-Fe-Oqf">
+                                    <rect key="frame" x="238" y="484" width="125" height="18"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorenzo Silva Feldens" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MyM-Bk-Z1u">
+                                    <rect key="frame" x="221" y="510" width="159" height="18"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maurício Matter Donato" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEL-iJ-lzg">
+                                    <rect key="frame" x="214" y="536" width="173" height="18"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elton Luiz Rasch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGz-Tp-qWO">
+                                    <rect key="frame" x="240" y="380" width="120" height="18"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frank Leonardo Casado" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wo5-Xg-byg">
+                                    <rect key="frame" x="214" y="432" width="173" height="18"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fernando Pires Barbosa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gta-lg-rHM">
+                                    <rect key="frame" x="213" y="406" width="175" height="18"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Equipe:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLz-xN-cVc">
+                                    <rect key="frame" x="274" y="302" width="52" height="18"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjF-HJ-WI7">
+                                    <rect key="frame" x="561" y="578" width="31" height="14"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Andrea Schwertner Charão" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xty-cs-H89">
+                                    <rect key="frame" x="201" y="328" width="199" height="18"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="250" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veS-RM-Ovg">
+                                    <rect key="frame" x="8" y="116" width="584" height="140"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="140" id="Xte-Zc-jqO"/>
+                                    </constraints>
+                                    <string key="text">O SmartCPC é um aplicativo resultado de um projeto que envolve a Pro-Reitoria de Planejamento da UFSM (ProPlan), Grupo de Pesquisa em Computação Móvel (GMob), Laboratório de Sistemas de Computação (LSC) e o Grupo de Pesquisa em Inteligência Corporativa Aplicada (ICORP). O aplicativo mostra de forma objetiva e gráfica os diferentes aspectos que compõem o índice CPC, permitindo que se faça comparações e projeções de resultado. Isto permite identificar estratégias que devem ser trabalhadas pelos curso de graduação da UFSM para melhorar o seu desempenho frente a este tipo de avaliação. Os dados utilizados pelo Aplicativo são disponibilizados pelo INEP.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="xdo-O8-NWC" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="3MZ-mb-hew"/>
+                                <constraint firstItem="veS-RM-Ovg" firstAttribute="centerX" secondItem="xdo-O8-NWC" secondAttribute="centerX" id="5DP-77-BbG"/>
+                                <constraint firstItem="Xty-cs-H89" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="65D-C1-Eox"/>
+                                <constraint firstItem="wo5-Xg-byg" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="7Hw-Yo-JeQ"/>
+                                <constraint firstItem="QG5-TY-QxH" firstAttribute="top" secondItem="wo5-Xg-byg" secondAttribute="bottom" constant="8" id="8aK-r7-LBY"/>
+                                <constraint firstItem="zFO-NN-nJX" firstAttribute="top" secondItem="Xty-cs-H89" secondAttribute="bottom" constant="8" id="BNf-14-JHw"/>
+                                <constraint firstItem="cEL-iJ-lzg" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="Heh-ak-mOm"/>
+                                <constraint firstItem="END-XP-ZqP" firstAttribute="top" secondItem="kqo-OB-lG3" secondAttribute="top" constant="8" id="JIN-ND-KnC"/>
+                                <constraint firstAttribute="bottom" secondItem="cjF-HJ-WI7" secondAttribute="bottom" constant="308" id="Owa-mP-1fZ"/>
+                                <constraint firstItem="wo5-Xg-byg" firstAttribute="top" secondItem="Gta-lg-rHM" secondAttribute="bottom" constant="8" id="P3H-A0-e01"/>
+                                <constraint firstItem="veS-RM-Ovg" firstAttribute="leading" secondItem="kqo-OB-lG3" secondAttribute="leading" constant="8" id="QN7-m4-Pg7"/>
+                                <constraint firstItem="TLz-xN-cVc" firstAttribute="top" secondItem="xdo-O8-NWC" secondAttribute="bottom" constant="8" id="RlD-EF-Us9"/>
+                                <constraint firstItem="cEL-iJ-lzg" firstAttribute="top" secondItem="MyM-Bk-Z1u" secondAttribute="bottom" constant="8" id="UGj-60-hSX"/>
+                                <constraint firstItem="NGz-Tp-qWO" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="UU0-Zk-W5R"/>
+                                <constraint firstItem="END-XP-ZqP" firstAttribute="top" secondItem="kqo-OB-lG3" secondAttribute="top" constant="8" id="W3C-cl-hKa"/>
+                                <constraint firstItem="Gta-lg-rHM" firstAttribute="top" secondItem="NGz-Tp-qWO" secondAttribute="bottom" constant="8" id="W5A-Ys-Uq5"/>
+                                <constraint firstItem="QG5-TY-QxH" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="YOs-2E-8a7"/>
+                                <constraint firstItem="MyM-Bk-Z1u" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="aAf-ko-Idq"/>
+                                <constraint firstItem="430-ID-8AL" firstAttribute="leading" secondItem="END-XP-ZqP" secondAttribute="trailing" constant="8" symbolic="YES" id="b2A-NK-5NL"/>
+                                <constraint firstItem="TLz-xN-cVc" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="c2y-Ih-ftA"/>
+                                <constraint firstItem="19O-Fe-Oqf" firstAttribute="top" secondItem="QG5-TY-QxH" secondAttribute="bottom" constant="8" id="c3n-uy-PYJ"/>
+                                <constraint firstItem="430-ID-8AL" firstAttribute="trailing" secondItem="veS-RM-Ovg" secondAttribute="trailing" id="ej1-U1-i6K"/>
+                                <constraint firstAttribute="trailing" secondItem="cjF-HJ-WI7" secondAttribute="trailing" constant="8" id="iQN-Uy-CVK"/>
+                                <constraint firstItem="veS-RM-Ovg" firstAttribute="top" secondItem="END-XP-ZqP" secondAttribute="bottom" constant="8" id="iaA-f2-LGx"/>
+                                <constraint firstItem="zFO-NN-nJX" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="kf2-yP-Sv7"/>
+                                <constraint firstItem="430-ID-8AL" firstAttribute="centerY" secondItem="END-XP-ZqP" secondAttribute="centerY" id="lhb-vD-fB1"/>
+                                <constraint firstItem="END-XP-ZqP" firstAttribute="leading" secondItem="kqo-OB-lG3" secondAttribute="leading" constant="8" id="oYq-AF-nn8"/>
+                                <constraint firstItem="Xty-cs-H89" firstAttribute="top" secondItem="TLz-xN-cVc" secondAttribute="bottom" constant="8" id="r3j-WG-cSZ"/>
+                                <constraint firstItem="MyM-Bk-Z1u" firstAttribute="top" secondItem="19O-Fe-Oqf" secondAttribute="bottom" constant="8" id="tZn-Fk-lgx"/>
+                                <constraint firstItem="NGz-Tp-qWO" firstAttribute="top" secondItem="zFO-NN-nJX" secondAttribute="bottom" constant="8" id="u8Z-K4-eOp"/>
+                                <constraint firstItem="19O-Fe-Oqf" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="wPc-3L-8zf"/>
+                                <constraint firstItem="Gta-lg-rHM" firstAttribute="centerX" secondItem="kqo-OB-lG3" secondAttribute="centerX" id="xDv-Kf-XRP"/>
+                                <constraint firstItem="xdo-O8-NWC" firstAttribute="top" secondItem="veS-RM-Ovg" secondAttribute="bottom" constant="8" id="zvf-ki-dmQ"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="kqo-OB-lG3" firstAttribute="top" secondItem="gM1-TD-8iM" secondAttribute="top" id="4km-ia-jgR"/>
+                        <constraint firstAttribute="bottom" secondItem="kqo-OB-lG3" secondAttribute="bottom" constant="120" id="8HX-nb-QZ7"/>
+                        <constraint firstAttribute="trailing" secondItem="kqo-OB-lG3" secondAttribute="trailing" id="BBy-kp-whu"/>
+                        <constraint firstItem="kqo-OB-lG3" firstAttribute="centerY" secondItem="gM1-TD-8iM" secondAttribute="centerY" constant="-60" id="RAv-Zh-JeD"/>
+                        <constraint firstItem="kqo-OB-lG3" firstAttribute="centerX" secondItem="gM1-TD-8iM" secondAttribute="centerX" id="vOT-Ah-7lj"/>
+                        <constraint firstItem="kqo-OB-lG3" firstAttribute="leading" secondItem="gM1-TD-8iM" secondAttribute="leading" id="zuh-OA-kiC"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="gM1-TD-8iM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="05v-81-zqE"/>
+                <constraint firstAttribute="bottom" secondItem="gM1-TD-8iM" secondAttribute="bottom" constant="-420" id="AAC-o0-RII"/>
+                <constraint firstAttribute="trailing" secondItem="gM1-TD-8iM" secondAttribute="trailing" id="Ytx-eG-TZ4"/>
+                <constraint firstItem="gM1-TD-8iM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xgS-vU-j6V"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <point key="canvasLocation" x="444" y="314"/>
+        </view>
+    </objects>
+</document>
